@@ -1,0 +1,22 @@
+import '../../../commons/helpers/presentation/mvvm/mvvm.dart';
+import '../../../commons/utils/utils.dart';
+import '../../auth/services/auth.dart';
+import 'splash_state.dart';
+
+class SplashViewModel extends ViewModel<SplashState> {
+  final IAuthService _authService;
+
+  SplashViewModel(
+    this._authService,
+  ) : super(SplashState.initial());
+
+  load() async {
+    final response = await _authService.getUserCredentials();
+
+    if (response?.idToken != null) {
+      Nav.pushReplacementNamed('/');
+    } else {
+      Nav.pushReplacementNamed('/auth');
+    }
+  }
+}

@@ -1,5 +1,5 @@
-import '../adapters/http_error.dart';
-import '../adapters/http_request.dart';
+import '../../adapters/http/http_error.dart';
+import '../../adapters/http/http_request.dart';
 
 abstract class BaseException implements Exception {
   Exception get exception;

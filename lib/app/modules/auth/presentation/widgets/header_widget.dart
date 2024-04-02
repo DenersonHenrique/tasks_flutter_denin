@@ -36,22 +36,6 @@ class HeaderWidget extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: 32,
-                    right: 32,
-                  ),
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
