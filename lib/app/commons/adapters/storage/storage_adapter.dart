@@ -9,13 +9,16 @@ import 'storage_client.dart';
 // Keychain is used for iOS
 // AES encryption is used for Android. AES secret key is encrypted with RSA and RSA key is stored in KeyStore
 class StorageAdapter extends IStorageClient<String> {
-  late Future<SharedPreferences> _storage = SharedPreferences.getInstance();
   late SharedPreferences _preferences;
 
-  /// Creates new instance of [StorageAdapter]
+  // Constructor
   StorageAdapter() {
-    _storage = SharedPreferences.getInstance();
-    _storage.then((preferences) => _preferences = preferences);
+    _initStorage();
+  }
+
+  // Initialize _preferences
+  Future<void> _initStorage() async {
+    _preferences = await SharedPreferences.getInstance();
   }
 
   @override
@@ -25,7 +28,10 @@ class StorageAdapter extends IStorageClient<String> {
   FutureOr<void> delete(String key) => _preferences.remove(key);
 
   @override
-  FutureOr read(String key) => _preferences.get(key);
+  FutureOr read(String key) async {
+    await _initStorage();
+    return _preferences.get(key);
+  }
 
   @override
   FutureOr<void> save(String key, String value) {

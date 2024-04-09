@@ -14,7 +14,7 @@ class SplashViewModel extends ViewModel<SplashState> {
     final response = await _authService.getUserCredentials();
 
     if (response?.idToken != null) {
-      Nav.pushReplacementNamed('/');
+      Nav.pushReplacementNamed('/home');
     } else {
       Nav.pushReplacementNamed('/auth');
     }

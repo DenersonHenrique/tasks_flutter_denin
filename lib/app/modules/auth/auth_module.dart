@@ -17,13 +17,13 @@ class AuthModule extends Module {
   void binds(i) {
     i.addLazySingleton<IAuthLocalDatasource>(
       () => AuthLocalDatasource(
-        i.get<IStorageClient<String>>(),
+        i.get<IStorageClient>(),
       ),
     );
     i.addLazySingleton<IAuthRemoteDatasource>(
-      () => UserDatasource(
+      () => AuthRemoteDatasource(
         i.get<IHttpClient>(),
-        i.get<IStorageClient<String>>(),
+        i.get<IStorageClient>(),
       ),
     );
     i.addLazySingleton<IAuthRepository>(AuthRepository.new);

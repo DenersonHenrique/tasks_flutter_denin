@@ -12,7 +12,7 @@ abstract class IAuthLocalDatasource {
 }
 
 class AuthLocalDatasource extends IAuthLocalDatasource {
-  final IStorageClient<String> _storageClient;
+  final IStorageClient _storageClient;
 
   AuthLocalDatasource(this._storageClient);
 
@@ -21,7 +21,11 @@ class AuthLocalDatasource extends IAuthLocalDatasource {
     try {
       final response = await _storageClient.read('user');
 
-      return jsonDecode(response);
+      if (response == null) {
+        return null;
+      }
+
+      return RegisteredUserModel.fromMap(jsonDecode(response));
     } on Exception catch (error) {
       throw LocalDatasourceException(exception: error);
     }

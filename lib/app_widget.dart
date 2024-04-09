@@ -13,6 +13,7 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: Modular.routerConfig,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

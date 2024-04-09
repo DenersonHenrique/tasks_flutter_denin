@@ -1,6 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../commons/adapters/http/http_client.dart';
+import '../../commons/adapters/storage/storage_client.dart';
 import '../auth/data/datasources/auth_local_datasource.dart';
+import '../auth/data/datasources/auth_remote_datasource.dart';
 import '../auth/data/repositories/auth_repository.dart';
 import '../auth/domain/repositories/auth_respository.dart';
 import '../auth/services/auth.dart';
@@ -12,8 +15,18 @@ class SplashModule extends Module {
   void binds(i) {
     i.addLazySingleton<IAuthService>(AuthService.new);
     i.addLazySingleton<IAuthRepository>(AuthRepository.new);
-    i.addLazySingleton<IAuthLocalDatasource>(AuthLocalDatasource.new);
     i.addSingleton<SplashViewModel>(SplashViewModel.new);
+    i.addLazySingleton<IAuthRemoteDatasource>(
+      () => AuthRemoteDatasource(
+        i.get<IHttpClient>(),
+        i.get<IStorageClient>(),
+      ),
+    );
+    i.addLazySingleton<IAuthLocalDatasource>(
+      () => AuthLocalDatasource(
+        i.get<IStorageClient>(),
+      ),
+    );
   }
 
   @override

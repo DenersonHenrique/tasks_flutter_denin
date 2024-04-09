@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../commons/helpers/errors/auth_exception.dart';
 import '../../domain/entities/login_params_entity.dart';
 
-enum AuthMode { Signup, Login }
+enum AuthMode { signUp, login }
 
 class AuthFormWidget extends StatefulWidget {
   final bool isLoading;
@@ -26,7 +26,7 @@ class _AuthFormWidgetState extends State<AuthFormWidget>
     'password': '',
   };
 
-  AuthMode authMode = AuthMode.Login;
+  AuthMode authMode = AuthMode.login;
 
   final GlobalKey<FormState> _form = GlobalKey();
   final _passwordController = TextEditingController();
@@ -35,7 +35,7 @@ class _AuthFormWidgetState extends State<AuthFormWidget>
   Animation<double>? _opacityAnimation;
   AnimationController? _animationController;
 
-  bool _isLogin() => authMode == AuthMode.Login;
+  bool _isLogin() => authMode == AuthMode.login;
 
   @override
   void initState() {
@@ -69,10 +69,10 @@ class _AuthFormWidgetState extends State<AuthFormWidget>
 
   void _switchAuthMode() {
     if (_isLogin()) {
-      setState(() => authMode = AuthMode.Signup);
+      setState(() => authMode = AuthMode.signUp);
       _animationController?.forward();
     } else {
-      setState(() => authMode = AuthMode.Login);
+      setState(() => authMode = AuthMode.login);
       _animationController?.reverse();
     }
   }
